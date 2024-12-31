@@ -9,19 +9,12 @@ return {
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       -- Useful status updates for LSP
       { 'j-hui/fidget.nvim', opts = {} },
+      'saghen/blink.cmp',
       -- Adds extra capabilities to nvim-cmp
-      'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
       -- Setup LSP autocommands
       require('config.autocommands.lsp').setup()
-
-      -- Setup capabilities with nvim-cmp support
-      local capabilities = vim.tbl_deep_extend(
-        'force',
-        vim.lsp.protocol.make_client_capabilities(),
-        require('cmp_nvim_lsp').default_capabilities()
-      )
 
       -- Configure language servers
       local servers = {
@@ -70,13 +63,18 @@ return {
         -- Add other language servers here
         -- gopls = {},
         -- rust_analyzer = {},
-        pyright = {
+        pylsp = {
           settings = {
-            python = {
-              analysis = {
-                autoSearchPaths = true,
-                useLibraryCodeForTypes = true,
-                diagnosticMode = 'workspace',
+            pylsp = {
+              plugins = {
+                pyflakes = { enabled = false },
+                pycodestyle = { enabled = false },
+                autopep8 = { enabled = false },
+                yapf = { enabled = false },
+                mccabe = { enabled = false },
+                pylsp_mypy = { enabled = false },
+                pylsp_black = { enabled = false },
+                pylsp_isort = { enabled = false },
               },
             },
           },
@@ -97,7 +95,8 @@ return {
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            server.capabilities = require('blink.cmp').get_lsp_capabilities(server.capabilities)
+
             require('lspconfig')[server_name].setup(server)
           end,
         },

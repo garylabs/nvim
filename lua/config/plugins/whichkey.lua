@@ -38,12 +38,12 @@ return {
         { '<leader>sh', fzf.help_tags, desc = 'Search Help' },
         { '<leader>sk', fzf.keymaps, desc = 'Search Keymaps' },
         { '<leader>sf', fzf.files, desc = 'Search Files' },
+        { '<leader>sq', fzf.quickfix, desc = 'Search Quickfix List' },
+        { '<leader>st', fzf.treesitter, desc = 'Search Treesitter' },
         { '<leader>ss', fzf.builtin, desc = 'Search Select FZF' },
         { '<leader>sw', fzf.grep_cword, desc = 'Search current Word' },
         { '<leader>sg', fzf.live_grep, desc = 'Search by Grep' },
         { '<leader>sd', fzf.diagnostics_document, desc = 'Search Diagnostics' },
-        { '<leader>sr', fzf.resume, desc = 'Resume last search' },
-        { '<leader>s.', fzf.oldfiles, desc = 'Search Recent Files' },
         {
           '<leader>s/',
           function()
@@ -67,7 +67,7 @@ return {
         { '<leader><leader>', group = 'workspace' },
         { '<leader><leader>s', fzf.lsp_workspace_symbols, desc = 'Workspace Symbols' },
         { '<leader><leader>x', '<cmd>source %<CR>', desc = 'Source File' },
-        { '<leader><leader>l', '<cmd>:.lua<CR>', desc = 'Source Line' },
+        { '<leader><leader>l', '<cmd>:.lua<CR>', desc = 'Source Line', mode = { 'n', 'v' } },
         { '<leader><leader>q', '<cmd>:q<CR>', desc = 'Quit Buffer' },
         { '<leader><leader>w', '<cmd>:w<CR>', desc = 'Save Buffer' },
         {
@@ -80,13 +80,21 @@ return {
 
         -- Terminal operations
         { '<leader>t', group = 'Terminal' },
+        { '<leader>d', group = 'Debugger' },
+        { '<leader>h', group = 'Harpoon' },
 
         -- LSP goto operations
         { 'g', group = 'goto' },
-        { 'gd', fzf.lsp_definitions, desc = 'Goto Definition' },
+        {
+          'gd',
+          fzf.lsp_definitions,
+          desc = 'Goto Definition',
+        },
         { 'gr', fzf.lsp_references, desc = 'Goto References' },
         { 'gI', fzf.lsp_implementations, desc = 'Goto Implementation' },
         { 'gD', vim.lsp.buf.declaration, desc = 'Goto Declaration' },
+
+        { '<leader>r', group = 'Run Tests' },
       }
     end,
   },
