@@ -1,7 +1,9 @@
 return {
   'saghen/blink.cmp',
   -- optional: provides snippets for the snippet source
-  dependencies = 'rafamadriz/friendly-snippets',
+  dependencies = {
+    'rafamadriz/friendly-snippets',
+  },
 
   -- use a release tag to download pre-built binaries
   version = '*',
@@ -28,11 +30,40 @@ return {
       -- Adjusts spacing to ensure icons are aligned
       nerd_font_variant = 'mono',
     },
+    completion = {
+      accept = { auto_brackets = { enabled = false } },
+    },
+    signature = {
+      enabled = true,
+      window = { border = 'rounded' },
+    },
 
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
+      cmdline = function()
+        local type = vim.fn.getcmdtype()
+        -- Search forward and backward
+        if type == '/' or type == '?' then
+          return { 'buffer' }
+        end
+        -- Commands
+        if type == ':' then
+          return { 'cmdline' }
+        end
+        return {}
+      end,
+      providers = {
+        lsp = {
+          min_keyword_length = 3,
+          max_items = 5,
+        },
+        buffer = {
+          min_keyword_length = 5,
+          max_items = 5,
+        },
+      },
     },
   },
   opts_extend = { 'sources.default' },
