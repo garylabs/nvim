@@ -55,12 +55,10 @@ vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Move to lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Move to upper window' })
 vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Move to right window' })
 
--- Git
-vim.keymap.set('n', '<leader>l', '<cmd>lua Snacks.lazygit.open()<CR>', { desc = 'Git' })
-
 -- Buffer navigation
 vim.keymap.set('n', '<S-l>', ':bnext<CR>', { desc = 'Next buffer' })
 vim.keymap.set('n', '<S-h>', ':bprevious<CR>', { desc = 'Previous buffer' })
+vim.keymap.set('n', '<leader>bd', ':bdelete!<CR>', { desc = 'Delete buffer' })
 
 -- Move lines up and down
 vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { desc = 'Move line down' })

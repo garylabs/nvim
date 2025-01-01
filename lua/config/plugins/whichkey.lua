@@ -82,6 +82,7 @@ return {
         { '<leader>t', group = 'Terminal' },
         { '<leader>d', group = 'Debugger' },
         { '<leader>h', group = 'Harpoon' },
+        { '<leader>b', group = 'Buffer' },
 
         -- LSP goto operations
         { 'g', group = 'goto' },
